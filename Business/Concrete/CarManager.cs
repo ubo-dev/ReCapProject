@@ -19,12 +19,11 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            _carDal.Add(car);
-        }
-
-        public void Delete(Car car)
-        {
-            _carDal.Delete(car);
+            if (car.Description.Length > 2 && car.DailyPrice > 0)
+            {
+                _carDal.Add(car);
+            }
+            else Console.WriteLine("Can't be added.");
         }
 
         public List<Car> GetAll()
@@ -32,14 +31,11 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
-        public List<Car> GetByBrandId(int id)
-        {
-           return _carDal.GetByBrandId(id);
-        }
 
-        public int Size()
+
+        public void Remove(Car car)
         {
-            return _carDal.Size();
+            _carDal.Delete(car);
         }
 
         public void Update(Car car)

@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -10,37 +11,18 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
             Car car1 = new Car { Id = 6, BrandId = 6, ColorId = 3, DailyPrice = 134000,Description = "Scoda SuperB",ModelYear = 2017};
             Car car2 = new Car { Id = 7, BrandId = 3, ColorId = 1, DailyPrice = 120000, Description = "Ford Ranger", ModelYear = 2016 };
 
-            PrintAll(carManager);
-            Console.WriteLine("----------------------------------");
-
             carManager.Add(car1);
             carManager.Add(car2);
+            //BrandManager brandManager = new BrandManager(new EfBrandDal());
+            //brandManager.Add(new Brand() { Id = 1, Name = "Maserati"});
+
+            //brandManager.GetAll();
+
             PrintAll(carManager);
-
-            Console.WriteLine("----------------------------------");
-            carManager.Delete(car2);
-            PrintAll(carManager);
-
-            Console.WriteLine("----------------------------------");
-            carManager.Update(new Car { Id = 1, BrandId = 6, ColorId = 4, DailyPrice = 105000,Description = "Scoda Octavia", ModelYear = 2020});
-            PrintAll(carManager);
-
-            Console.WriteLine("----------------------------------");
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(car.Description + ": " + car.DailyPrice );
-            }
-
-            Console.WriteLine("----------------------------------");
-
-            foreach (var car in carManager.GetByBrandId(6))
-            {
-                Console.WriteLine(car.Description);
-            }
 
 
 
